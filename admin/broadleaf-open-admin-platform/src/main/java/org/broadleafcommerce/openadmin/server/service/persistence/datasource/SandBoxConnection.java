@@ -271,4 +271,11 @@ public class SandBoxConnection implements Connection {
             throws SQLException {
         return delegate.createStruct(typeName, attributes);
     }
+
+    // testset build fix: JDBC 4.1 (Java 7+) methods so this compiles on JDK 8
+    public void setSchema(String schema) throws SQLException { throw new SQLException("not supported"); }
+    public String getSchema() throws SQLException { return null; }
+    public void abort(java.util.concurrent.Executor executor) throws SQLException { delegate.close(); }
+    public void setNetworkTimeout(java.util.concurrent.Executor executor, int milliseconds) throws SQLException { throw new SQLException("not supported"); }
+    public int getNetworkTimeout() throws SQLException { return 0; }
 }
